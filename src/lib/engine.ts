@@ -1,4 +1,4 @@
-import getAccount from './account';
+import { getAccount, getBankName } from './account';
 import getBalance from './balance';
 import {
   IAccountType,
@@ -41,7 +41,7 @@ export const getTransactionAmount = (message: TMessageType): string => {
 
 export const getTransactionType = (message: TMessageType) => {
   const creditPattern = /(?:credited|credit|deposited|added|received|refund)/gi;
-  const debitPattern = /(?:debited|debit|deducted)/gi;
+  const debitPattern = /(?:debited|debit|deducted|w\/d)/gi;
   const miscPattern =
     /(?:payment|spent|paid|used\sat|charged|transaction\son|transaction\sfee|tran|booked|purchased)/gi;
 
@@ -60,7 +60,10 @@ export const getTransactionType = (message: TMessageType) => {
   return '';
 };
 
-export const getTransactionInfo = (message: string): ITransactionInfo => {
+export const getTransactionInfo = (
+  message: string,
+  sender: string
+): ITransactionInfo => {
   if (!message || typeof message !== 'string') {
     return {
       account: {
@@ -69,6 +72,7 @@ export const getTransactionInfo = (message: string): ITransactionInfo => {
       transactionAmount: '',
       balance: { available: '' },
       transactionType: '',
+      bankName: '',
     };
   }
 
@@ -79,6 +83,7 @@ export const getTransactionInfo = (message: string): ITransactionInfo => {
     IBalanceKeyWordsType.AVAILABLE
   );
   const transactionAmount = getTransactionAmount(processedMessage);
+  const bankName = getBankName(sender);
   const isValid =
     [availableBalance, transactionAmount, account.number].filter(
       (x) => x !== ''
@@ -101,5 +106,6 @@ export const getTransactionInfo = (message: string): ITransactionInfo => {
     balance,
     transactionAmount,
     transactionType,
+    bankName,
   };
 };

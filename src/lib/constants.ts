@@ -1,4 +1,4 @@
-import { IAccountType, ICombinedWords } from './interface';
+import { IAccountType, IBankType, ICombinedWords } from './interface';
 
 export const availableBalanceKeywords = [
   'avbl bal',
@@ -19,6 +19,57 @@ export const availableBalanceKeywords = [
 export const outstandingBalanceKeywords = ['outstanding'];
 
 export const wallets = ['paytm', 'simpl', 'lazypay', 'amazon_pay'];
+
+export const bankKeywords: IBankType[] = [
+  {
+    key: 'ALBANK',
+    bankName: 'Allahabad Bank',
+  },
+  {
+    key: 'ATMSBI',
+    bankName: 'STATE BANK OF INDIA',
+  },
+  {
+    key: 'SBI',
+    bankName: 'STATE BANK OF INDIA',
+  },
+  {
+    key: 'AXIS',
+    bankName: 'AXIS BANK LIMITED',
+  },
+  {
+    key: 'HDFC',
+    bankName: 'HDFC Bank',
+  },
+  {
+    key: 'BOB',
+    bankName: 'Bank of Baroda',
+  },
+  {
+    key: 'PNB',
+    bankName: 'PNB',
+  },
+  {
+    key: 'CITI',
+    bankName: 'CITI',
+  },
+  {
+    key: 'KOTAK',
+    bankName: 'KOTAK',
+  },
+  {
+    key: 'ICICI',
+    bankName: 'ICICI',
+  },
+  {
+    key: 'HSBC',
+    bankName: 'HSBC',
+  },
+  {
+    key: 'IDFC',
+    bankName: 'IDFC',
+  },
+];
 
 export const combinedWords: ICombinedWords[] = [
   {

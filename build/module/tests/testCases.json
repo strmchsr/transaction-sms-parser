@@ -6,6 +6,7 @@
         "accountNumber": 3423,
         "transactionAmount": 2000,
         "transactionType": "debit",
-        "balanceAvailable": 2343.23
+        "balanceAvailable": 2343.23,
+        "bankName": "ICICI"
     }
 ]

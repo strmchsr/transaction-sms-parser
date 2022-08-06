@@ -27,10 +27,16 @@ export interface ITransactionInfo {
   transactionAmount: string;
   balance?: IBalance;
   transactionType: 'debit' | 'credit' | '';
+  bankName: string;
 }
 
 export interface ICombinedWords {
   regex: RegExp;
   word: string;
   type: IAccountType;
+}
+
+export interface IBankType {
+  key: string;
+  bankName: string;
 }

@@ -16,6 +16,7 @@ testCases.forEach((testCase, index) => {
         ? padCurrencyValue(`${testCase.transactionAmount}`)
         : '',
       transactionType: testCase.transactionType as 'debit' | 'credit' | '',
+      bankName: testCase.bankName,
     };
 
     expected.balance = {
@@ -44,7 +45,7 @@ testCases.forEach((testCase, index) => {
       expected.account.name = testCase.accountName;
     }
 
-    const actual = getTransactionInfo(testCase.message);
+    const actual = getTransactionInfo(testCase.message, 'ICICI');
 
     t.deepEqual(actual, expected);
   });

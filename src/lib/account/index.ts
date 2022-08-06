@@ -1,4 +1,4 @@
-import { combinedWords, wallets } from '../constants';
+import { bankKeywords, combinedWords, wallets } from '../constants';
 import { IAccountInfo, IAccountType, TMessageType } from '../interface';
 import {
   extractBondedAccountNo,
@@ -40,6 +40,16 @@ const getCard = (message: string[]): IAccountInfo => {
     return card;
   }
   return { type: null };
+};
+
+const getBankName = (sender: string): string => {
+  let bankName = '';
+  bankKeywords.forEach((item) => {
+    if (sender.toLowerCase().includes(item.key.toLowerCase())) {
+      bankName = item.bankName;
+    }
+  });
+  return bankName;
 };
 
 const getAccount = (message: TMessageType): IAccountInfo => {
@@ -118,4 +128,4 @@ const getAccount = (message: TMessageType): IAccountInfo => {
   return account;
 };
 
-export default getAccount;
+export { getAccount, getBankName };
