@@ -35,7 +35,7 @@ export const processMessage = (message: string): string[] => {
   // replace 'x'
   messageStr = messageStr.replace(/x|[*]/g, '');
 
-  messageStr = messageStr.replace(/\.|[*]/g, '');
+  messageStr = messageStr.replace(/\.{2}|[*]/g, '');
   // // remove 'is' 'with'
   // message = message.replace(/\bis\b|\bwith\b/g, '');
   // replace 'is'
