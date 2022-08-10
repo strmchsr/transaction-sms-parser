@@ -43,7 +43,7 @@ export const processMessage = (message: string): string[] => {
   // remove 'no.'
   messageStr = messageStr.replace(/no. /g, '');
   // replace all ac, acct, account with ac
-  messageStr = messageStr.replace(/\bac\b|\bacct\b|\baccount\b/g, 'ac');
+  messageStr = messageStr.replace(/\bac\b|\bacct\b|\baccount\b|\bAc\b/g, 'ac');
   // replace all 'rs' with 'rs. '
   messageStr = messageStr.replace(/rs(?=\w)/g, 'rs. ');
   // replace all 'rs ' with 'rs. '
