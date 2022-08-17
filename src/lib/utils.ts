@@ -1,12 +1,6 @@
 import { combinedWords } from './constants';
 import { TMessageType } from './interface';
 
-let regexParser;
-
-export const setRegexParser = (parser: Map<RegExp, string>) => {
-  regexParser = parser;
-};
-
 export const trimLeadingAndTrailingChars = (str: string): string => {
   const [first, last] = [str[0], str[str.length - 1]];
 
@@ -21,10 +15,13 @@ export const extractBondedAccountNo = (accountNo: string): string => {
   return Number.isNaN(Number(strippedAccountNo)) ? '' : strippedAccountNo;
 };
 
-export const processMessage = (message: string): string[] => {
+export const processMessage = (
+  message: string,
+  parser: Map<RegExp, string>
+): string[] => {
   // convert to lower case
   let messageStr = message.toLowerCase();
-  regexParser.forEach((value, key) => {
+  parser.forEach((value, key) => {
     messageStr = messageStr.replace(key, value);
   });
   // combine words
@@ -34,10 +31,13 @@ export const processMessage = (message: string): string[] => {
   return messageStr.split(' ').filter((str) => str !== '');
 };
 
-export const getProcessedMessage = (message: TMessageType) => {
+export const getProcessedMessage = (
+  message: TMessageType,
+  parser: Map<RegExp, string>
+) => {
   let processedMessage: string[] = [];
   if (typeof message === 'string') {
-    processedMessage = processMessage(message);
+    processedMessage = processMessage(message, parser);
   } else {
     processedMessage = message;
   }

@@ -13,20 +13,14 @@ var __createBinding = (this && this.__createBinding) || (Object.create ? (functi
 var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SmsParser = void 0;
-const account_1 = require("./lib/account");
-const balance_1 = __importDefault(require("./lib/balance"));
-const utils_1 = require("./lib/utils");
+const engine_1 = require("./lib/engine");
 __exportStar(require("./lib/engine"), exports);
-const smsParser = (regexParserMap) => {
-    (0, utils_1.setRegexParser)(regexParserMap);
-};
-smsParser.prototype.getAccountInfo = account_1.getAccount;
-smsParser.prototype.getBalanceInfo = balance_1.default;
-smsParser.prototype.getBankNameInfo = account_1.getBankName;
-exports.SmsParser = smsParser;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi9zcmMvaW5kZXgudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSwyQ0FBd0Q7QUFDeEQsNERBQXVDO0FBQ3ZDLHVDQUE2QztBQUU3QywrQ0FBNkI7QUFDN0IsTUFBTSxTQUFTLEdBQUcsQ0FBQyxjQUFtQyxFQUFFLEVBQUU7SUFDdEQsSUFBQSxzQkFBYyxFQUFDLGNBQWMsQ0FBQyxDQUFDO0FBQ25DLENBQUMsQ0FBQztBQUVGLFNBQVMsQ0FBQyxTQUFTLENBQUMsY0FBYyxHQUFHLG9CQUFVLENBQUM7QUFDaEQsU0FBUyxDQUFDLFNBQVMsQ0FBQyxjQUFjLEdBQUcsaUJBQVUsQ0FBQztBQUNoRCxTQUFTLENBQUMsU0FBUyxDQUFDLGVBQWUsR0FBRyxxQkFBVyxDQUFDO0FBRXJDLFFBQUEsU0FBUyxHQUFHLFNBQVMsQ0FBQyJ9
+function SmsParser(regexParserMap) {
+    this.getAccountInfo = (message, sender) => {
+        return (0, engine_1.getTransactionInfo)(message, sender, regexParserMap);
+    };
+}
+;
+exports.default = SmsParser;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi9zcmMvaW5kZXgudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7OztBQUFBLHlDQUFrRDtBQUVsRCwrQ0FBNkI7QUFFN0IsU0FBUyxTQUFTLENBQUMsY0FBbUM7SUFDbEQsSUFBSSxDQUFDLGNBQWMsR0FBRyxDQUFDLE9BQWUsRUFBRSxNQUFjLEVBQUUsRUFBRTtRQUN0RCxPQUFPLElBQUEsMkJBQWtCLEVBQUMsT0FBTyxFQUFFLE1BQU0sRUFBRSxjQUFjLENBQUMsQ0FBQztJQUMvRCxDQUFDLENBQUE7QUFDTCxDQUFDO0FBQUEsQ0FBQztBQUVGLGtCQUFlLFNBQVMsQ0FBQyJ9

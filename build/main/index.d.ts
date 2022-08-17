@@ -1,2 +1,3 @@
 export * from './lib/engine';
-export declare const SmsParser: (regexParserMap: Map<RegExp, string>) => void;
+declare function SmsParser(regexParserMap: Map<RegExp, string>): void;
+export default SmsParser;

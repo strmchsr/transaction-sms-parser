@@ -52,8 +52,8 @@ const getBankName = (sender: string): string => {
   return bankName;
 };
 
-const getAccount = (message: TMessageType): IAccountInfo => {
-  const processedMessage = getProcessedMessage(message);
+const getAccount = (message: TMessageType, parser: Map<RegExp, string>): IAccountInfo => {
+  const processedMessage = getProcessedMessage(message, parser);
   let accountIndex = -1;
   let account: IAccountInfo = {
     type: null,

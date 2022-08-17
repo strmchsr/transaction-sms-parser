@@ -1,14 +1,11 @@
-import { getAccount, getBankName } from './lib/account';
-import getBalance from './lib/balance';
-import { setRegexParser } from './lib/utils';
+import { getTransactionInfo } from './lib/engine';
 
 export * from './lib/engine';
-const smsParser = (regexParserMap: Map<RegExp, string>) => {
-    setRegexParser(regexParserMap);
+
+function SmsParser(regexParserMap: Map<RegExp, string>) {
+    this.getAccountInfo = (message: string, sender: string) => {
+        return getTransactionInfo(message, sender, regexParserMap);
+    }
 };
 
-smsParser.prototype.getAccountInfo = getAccount;
-smsParser.prototype.getBalanceInfo = getBalance;
-smsParser.prototype.getBankNameInfo = getBankName;
-
-export const SmsParser = smsParser;
+export default SmsParser;

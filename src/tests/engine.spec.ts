@@ -4,7 +4,7 @@ import test from 'ava';
 
 import { getTransactionInfo } from '../lib/engine';
 import { IAccountType, ITransactionInfo } from '../lib/interface';
-import { padCurrencyValue, setRegexParser } from '../lib/utils';
+import { padCurrencyValue } from '../lib/utils';
 
 import testCases from './testCases.json';
 
@@ -45,8 +45,6 @@ const REGEXP = new Map([
   [/rs.(?=\w)/g, 'rs. '],
 ]);
 
-setRegexParser(REGEXP);
-
 testCases.forEach((testCase, index) => {
   test(`${testCase.name}-${index}`, (t) => {
     const expected: ITransactionInfo = {
@@ -84,7 +82,7 @@ testCases.forEach((testCase, index) => {
       expected.account.name = testCase.accountName;
     }
 
-    const actual = getTransactionInfo(testCase.message, 'ICICI');
+    const actual = getTransactionInfo(testCase.message, 'ICICI', REGEXP);
 
     t.deepEqual(actual, expected);
   });

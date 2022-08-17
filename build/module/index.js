@@ -1,12 +1,10 @@
-import { getAccount, getBankName } from './lib/account';
-import getBalance from './lib/balance';
-import { setRegexParser } from './lib/utils';
+import { getTransactionInfo } from './lib/engine';
 export * from './lib/engine';
-const smsParser = (regexParserMap) => {
-    setRegexParser(regexParserMap);
-};
-smsParser.prototype.getAccountInfo = getAccount;
-smsParser.prototype.getBalanceInfo = getBalance;
-smsParser.prototype.getBankNameInfo = getBankName;
-export const SmsParser = smsParser;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi9zcmMvaW5kZXgudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsT0FBTyxFQUFFLFVBQVUsRUFBRSxXQUFXLEVBQUUsTUFBTSxlQUFlLENBQUM7QUFDeEQsT0FBTyxVQUFVLE1BQU0sZUFBZSxDQUFDO0FBQ3ZDLE9BQU8sRUFBRSxjQUFjLEVBQUUsTUFBTSxhQUFhLENBQUM7QUFFN0MsY0FBYyxjQUFjLENBQUM7QUFDN0IsTUFBTSxTQUFTLEdBQUcsQ0FBQyxjQUFtQyxFQUFFLEVBQUU7SUFDdEQsY0FBYyxDQUFDLGNBQWMsQ0FBQyxDQUFDO0FBQ25DLENBQUMsQ0FBQztBQUVGLFNBQVMsQ0FBQyxTQUFTLENBQUMsY0FBYyxHQUFHLFVBQVUsQ0FBQztBQUNoRCxTQUFTLENBQUMsU0FBUyxDQUFDLGNBQWMsR0FBRyxVQUFVLENBQUM7QUFDaEQsU0FBUyxDQUFDLFNBQVMsQ0FBQyxlQUFlLEdBQUcsV0FBVyxDQUFDO0FBRWxELE1BQU0sQ0FBQyxNQUFNLFNBQVMsR0FBRyxTQUFTLENBQUMifQ==
+function SmsParser(regexParserMap) {
+    this.getAccountInfo = (message, sender) => {
+        return getTransactionInfo(message, sender, regexParserMap);
+    };
+}
+;
+export default SmsParser;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi9zcmMvaW5kZXgudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsT0FBTyxFQUFFLGtCQUFrQixFQUFFLE1BQU0sY0FBYyxDQUFDO0FBRWxELGNBQWMsY0FBYyxDQUFDO0FBRTdCLFNBQVMsU0FBUyxDQUFDLGNBQW1DO0lBQ2xELElBQUksQ0FBQyxjQUFjLEdBQUcsQ0FBQyxPQUFlLEVBQUUsTUFBYyxFQUFFLEVBQUU7UUFDdEQsT0FBTyxrQkFBa0IsQ0FBQyxPQUFPLEVBQUUsTUFBTSxFQUFFLGNBQWMsQ0FBQyxDQUFDO0lBQy9ELENBQUMsQ0FBQTtBQUNMLENBQUM7QUFBQSxDQUFDO0FBRUYsZUFBZSxTQUFTLENBQUMifQ==

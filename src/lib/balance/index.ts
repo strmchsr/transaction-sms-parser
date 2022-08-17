@@ -62,9 +62,10 @@ const findNonStandardBalance = (
 
 const getBalance = (
   message: TMessageType,
-  keyWordType: IBalanceKeyWordsType = IBalanceKeyWordsType.AVAILABLE
+  parser: Map<RegExp, string>,
+  keyWordType: IBalanceKeyWordsType = IBalanceKeyWordsType.AVAILABLE,
 ) => {
-  const processedMessage = getProcessedMessage(message);
+  const processedMessage = getProcessedMessage(message, parser);
   const messageString = processedMessage.join(' ');
   let indexOfKeyword = -1;
   let balance = '';

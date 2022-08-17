@@ -9,8 +9,11 @@ import {
 } from './interface';
 import { getProcessedMessage, padCurrencyValue, processMessage } from './utils';
 
-export const getTransactionAmount = (message: TMessageType): string => {
-  const processedMessage = getProcessedMessage(message);
+export const getTransactionAmount = (
+  message: TMessageType,
+  parser: Map<RegExp, string>
+): string => {
+  const processedMessage = getProcessedMessage(message, parser);
   const index = processedMessage.indexOf('rs.');
 
   // If "rs." does not exist
@@ -62,7 +65,8 @@ export const getTransactionType = (message: TMessageType) => {
 
 export const getTransactionInfo = (
   message: string,
-  sender: string
+  sender: string,
+  parser: Map<RegExp, string>
 ): ITransactionInfo => {
   if (!message || typeof message !== 'string') {
     return {
@@ -76,13 +80,14 @@ export const getTransactionInfo = (
     };
   }
 
-  const processedMessage = processMessage(message);
-  const account = getAccount(processedMessage);
+  const processedMessage = processMessage(message, parser);
+  const account = getAccount(processedMessage, parser);
   const availableBalance = getBalance(
     processedMessage,
+    parser,
     IBalanceKeyWordsType.AVAILABLE
   );
-  const transactionAmount = getTransactionAmount(processedMessage);
+  const transactionAmount = getTransactionAmount(processedMessage, parser);
   const bankName = getBankName(sender);
   const isValid =
     [availableBalance, transactionAmount, account.number].filter(
@@ -94,6 +99,7 @@ export const getTransactionInfo = (
   if (account && account.type === IAccountType.CARD) {
     balance.outstanding = getBalance(
       processedMessage,
+      parser,
       IBalanceKeyWordsType.OUTSTANDING
     );
   }
