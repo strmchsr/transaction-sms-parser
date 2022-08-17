@@ -1,6 +1,12 @@
 import { combinedWords } from './constants';
 import { TMessageType } from './interface';
 
+let regexParser;
+
+export const setRegexParser = (parser: Map<RegExp, string>) => {
+  regexParser = parser;
+};
+
 export const trimLeadingAndTrailingChars = (str: string): string => {
   const [first, last] = [str[0], str[str.length - 1]];
 
@@ -18,46 +24,9 @@ export const extractBondedAccountNo = (accountNo: string): string => {
 export const processMessage = (message: string): string[] => {
   // convert to lower case
   let messageStr = message.toLowerCase();
-  // remove '-'
-  messageStr = messageStr.replace(/-/g, ' ');
-  // remove ':'
-  messageStr = messageStr.replace(/:/g, ' ');
-  // remove '/'
-  messageStr = messageStr.replace(/\//g, '');
-  // remove '='
-  messageStr = messageStr.replace(/=/g, ' ');
-  // remove '{}'
-  messageStr = messageStr.replace(/[{}]/g, ' ');
-  // remove \n
-  messageStr = messageStr.replace(/\n/g, ' ');
-  // remove 'ending'
-  messageStr = messageStr.replace(/ending /g, '');
-  // replace 'x'
-  messageStr = messageStr.replace(/x|[*]/g, '');
-
-  messageStr = messageStr.replace(/\.{2}|[*]/g, '');
-  // // remove 'is' 'with'
-  // message = message.replace(/\bis\b|\bwith\b/g, '');
-  // replace 'is'
-  messageStr = messageStr.replace(/is /g, '');
-  // replace 'with'
-  messageStr = messageStr.replace(/with /g, '');
-  // remove 'no.'
-  messageStr = messageStr.replace(/no. /g, '');
-  // replace all ac, acct, account with ac
-  messageStr = messageStr.replace(/\bac\b|\bacct\b|\baccount\b|\bAc\b/g, 'ac');
-  // replace all 'rs' with 'rs. '
-  messageStr = messageStr.replace(/rs(?=\w)/g, 'rs. ');
-  // replace all 'rs ' with 'rs. '
-  messageStr = messageStr.replace(/rs /g, 'rs. ');
-  // replace all inr with rs.
-  messageStr = messageStr.replace(/inr(?=\w)/g, 'rs. ');
-  //
-  messageStr = messageStr.replace(/inr /g, 'rs. ');
-  // replace all 'rs. ' with 'rs.'
-  messageStr = messageStr.replace(/rs. /g, 'rs.');
-  // replace all 'rs.' with 'rs. '
-  messageStr = messageStr.replace(/rs.(?=\w)/g, 'rs. ');
+  regexParser.forEach((value, key) => {
+    messageStr = messageStr.replace(key, value);
+  });
   // combine words
   combinedWords.forEach((word) => {
     messageStr = messageStr.replace(word.regex, word.word);

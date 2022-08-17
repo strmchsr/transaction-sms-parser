@@ -4,9 +4,48 @@ import test from 'ava';
 
 import { getTransactionInfo } from '../lib/engine';
 import { IAccountType, ITransactionInfo } from '../lib/interface';
-import { padCurrencyValue } from '../lib/utils';
+import { padCurrencyValue, setRegexParser } from '../lib/utils';
 
 import testCases from './testCases.json';
+
+const REGEXP = new Map([
+  // remove '-'
+  [/-/g, ' '],
+  // remove ':'
+  [/:/g, ' '],
+  // remove '/'
+  [/\//g, ''],
+  // remove '='
+  [/=/g, ' '],
+  // remove '{}'
+  [/[{}]/g, ' '],
+  // remove \n
+  [/\n/g, ' '],
+  // remove 'ending'
+  [/ending /g, ''],
+  // replace 'x'
+  [/x|[*]/g, ''],
+  [/\.{2}|[*]/g, ''],
+  // replace 'is'
+  [/is /g, ''],
+  // replace 'with'
+  [/with /g, ''],
+  // remove 'no.'
+  [/no. /g, ''],
+  // replace all ac, acct, account with ac
+  [/\bac\b|\bacct\b|\baccount\b|\bAc\b/g, 'ac'],
+  // replace all 'rs' with 'rs. '
+  [/rs(?=\w)/g, 'rs. '],
+  // replace all 'rs ' with 'rs. '
+  [/rs /g, 'rs. '],
+  // replace all inr with rs.
+  [/inr(?=\w)/g, 'rs. '],
+  [/inr /g, 'rs. '],
+  [/rs. /g, 'rs.'],
+  [/rs.(?=\w)/g, 'rs. '],
+]);
+
+setRegexParser(REGEXP);
 
 testCases.forEach((testCase, index) => {
   test(`${testCase.name}-${index}`, (t) => {

@@ -1,4 +1,5 @@
 import { TMessageType } from './interface';
+export declare const setRegexParser: (parser: Map<RegExp, string>) => void;
 export declare const trimLeadingAndTrailingChars: (str: string) => string;
 export declare const extractBondedAccountNo: (accountNo: string) => string;
 export declare const processMessage: (message: string) => string[];
